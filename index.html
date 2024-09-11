@@ -1,12 +1,19 @@
-<input id="input" type=text placeholder="Input Password">
+<input id="input" type="text" placeholder="Input Password">
 <title>Input password to continue</title>
 <button onclick="submit()">Submit</button>
 <script>
-  function submit(){
-    var pass=fetch("")
-    var input=document.getElementById("input").value
-    if (input == pass){
-      window.location.href += "eaglercraft.html"
-    } else {alert("Wrong Password")}
+  async function submit() {
+    try {
+      const response = await fetch("https://raw.githubusercontent.com/FunnyDoggs/Eaglercraft1.5.2/main/password.txt");
+      const pass = await response.text();
+      const input = document.getElementById("input").value;
+      if (input === pass.trim()) {
+        window.location.href = "eaglercraft.html";
+      } else {
+        alert("Wrong Password");
+      }
+    } catch (error) {
+      console.error("Error fetching password:", error);
+    }
   }
 </script>
