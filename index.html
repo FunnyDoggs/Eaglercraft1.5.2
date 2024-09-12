@@ -1,31 +1,46 @@
 <input id="input" type="text" placeholder="Input Password">
 <title>Input password to continue</title>
 <button onclick="submit()">Submit</button>
+
 <script>
   async function submit() {
       const response = await fetch("https://raw.githubusercontent.com/FunnyDoggs/Eaglercraft1.5.2/main/password.txt");
       const pass = await response.text();
       const input = document.getElementById("input").value;
-      var docFetched = await fetch("https://raw.githubusercontent.com/FunnyDoggs/Eaglercraft1.5.2/main/eaglercraft.html")
-      var doc = await docFetched.text()
+
+      // Fetch the eaglercraft.html content
+      var docFetched = await fetch("https://raw.githubusercontent.com/FunnyDoggs/Eaglercraft1.5.2/main/eaglercraft.html");
+      var doc = await docFetched.text();
+
+      // Normal password condition
       if (input === pass.trim()) {
-        n = doc.lastIndexOf("</html>");
-        if (n >= 0 && n + "</html>".length >= doc.length) {
-          doc = doc.substring(0, n) + '<script src="https://chii.liriliri.io/target.js"></script></html>';
-        }
-        document.open()
-        document.write(doc)
-        document.close()
-      } else if (input === pass.trim()+"DEV=TRUE") {
-        n = doc.lastIndexOf("</html>");
-        if (n >= 0 && n + "</html>".length >= doc.length) {
-          doc = doc.substring(0, n) + '<script src="https://cdn.jsdelivr.net/npm/eruda@latest/eruda.min.js"></script><script>eruda.init()</script></html>';
-        }
-        document.open()
-        document.write(doc)
-        document.close()
-      } else {
-        alert("Wrong Password");
+          doc = insertScript(doc, '<script src="https://chii.liriliri.io/target.js"></script>');
+          overwriteDocument(doc);
+      } 
+      // Dev mode password condition
+      else if (input === pass.trim() + "DEV=TRUE") {
+          doc = insertScript(doc, '<script src="https://cdn.jsdelivr.net/npm/eruda@latest/eruda.min.js"></script><script>eruda.init()</script>');
+          overwriteDocument(doc);
+      } 
+      // Wrong password
+      else {
+          alert("Wrong Password");
       }
+  }
+
+  // Function to insert the script before </html>
+  function insertScript(html, script) {
+      let n = html.lastIndexOf("</html>");
+      if (n >= 0 && n + "</html>".length >= html.length) {
+          return html.substring(0, n) + script + "</html>";
+      }
+      return html;
+  }
+
+  // Function to overwrite the entire document content
+  function overwriteDocument(content) {
+      document.open();
+      document.write(content);
+      document.close();
   }
 </script>
