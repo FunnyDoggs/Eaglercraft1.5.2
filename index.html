@@ -11,7 +11,7 @@
       if (input === pass.trim()) {
         n = doc.lastIndexOf("</html>);
         if (n >= 0 && n + "</html>".length >= doc.length) {
-          doc = doc.substring(0, n) + '<script src="https://chii.liriliri.io/target.js"></script></html>';
+          doc = doc.substring(0, n) + "<script src=\"https://chii.liriliri.io/target.js\"></script></html>";
         }
         document.open()
         document.write(doc)
