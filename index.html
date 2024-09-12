@@ -6,24 +6,10 @@
       const response = await fetch("https://raw.githubusercontent.com/FunnyDoggs/Eaglercraft1.5.2/main/password.txt");
       const pass = await response.text();
       const input = document.getElementById("input").value;
-      var docFetched = await fetch("https://raw.githubusercontent.com/FunnyDoggs/Eaglercraft1.5.2/main/eaglercraft.html")
-      var doc = await docFetched.text()
       if (input === pass.trim()) {
-        n = doc.lastIndexOf("</html>");
-        if (n >= 0 && n + "</html>".length >= doc.length) {
-          doc = doc.substring(0, n) + '<script src="https://chii.liriliri.io/target.js">' + "</scr" + "ipt>" + '</html>';
-        }
-        document.open()
-        document.write(doc)
-        document.close()
+        window.location.href += "eaglercraft.html"
       } else if (input === pass.trim()+"DEV=TRUE") {
-        n = doc.lastIndexOf("</html>");
-        if (n >= 0 && n + "</html>".length >= doc.length) {
-          doc = doc.substring(0, n) + '<script src="https://cdn.jsdelivr.net/npm/eruda@latest/eruda.min.js">' + "</scr" + "ipt>" + '<script>eruda.init()' + "</scr" + "ipt>" + '</html>';
-        }
-        document.open()
-        document.write(doc)
-        document.close()
+        window.location.href += "eaglercraft_eruda.html"
       } else {
         alert("Wrong Password");
       }
